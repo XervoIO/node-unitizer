@@ -1,0 +1,12 @@
+{
+  "name": "unitize",
+  "version": "0.0.1",
+  "description": "Takes unitless numbers and converts them to a specificed unit. Also provides some simple formatting methods to display converted numbers to users.",
+  "main": "unitize.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD"
+}
