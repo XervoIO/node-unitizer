@@ -48,7 +48,10 @@ Formatter.prototype.precision = function(precision) {
 
 //Formats the value to the specified number of significant digits
 Formatter.prototype.significant = function(digits) {
+  this._formatted = true;
+  
   this.value = this.value.toPrecision(digits);
+  this.value = parseFloat(this.value);
 
   //Chain
   return this;
