@@ -98,7 +98,7 @@ Formatter.prototype.capitalize = function() {
 
   //Chain
   return this;
-}
+};
 
 /**
  * Returns a formatted string with the value and unit.
@@ -145,9 +145,15 @@ var unitize = function(value, base, units) {
   //Make sure all the necessary values are numbers
   try {
     value = unitize._makeNumber(value);
-    base = unitize._makeNumber(base);
+    if(base instanceof  Array === false) {
+      base = unitize._makeNumber(base);
+    }
   } catch(e) {
     return new Formatter(0,'');
+  }
+
+  if(base instanceof Array) {
+    return unitize._array(value, base, units);
   }
 
   //Setup of variables
@@ -160,9 +166,10 @@ var unitize = function(value, base, units) {
   while(value / increment >= 1 && i < units.length) {
     //increase the divisor by the base
     increment *= base;
-    
+
     //Update the converted value and unit
     reduced = (value / increment * base);
+
     unit = units[i];
 
     i++;
@@ -183,6 +190,33 @@ unitize._makeNumber = function(value) {
   }
 
   return value;
+};
+
+unitize._array = function(value, base, units) {
+
+  var increment = base[0];
+  var reduced = value;
+  var unit = units[0];
+
+
+  //Loop until the value is converted or we run out of units
+  var i = 1;
+  while(reduced / increment >= 1 && i < units.length) {
+    //Set the increment to the current base
+    if(base.length > i) {
+      increment = base[i];
+    } else {
+      increment = base[base.length - 1];
+    }
+
+    //Update the converted value and unit
+    reduced = reduced / increment;
+    unit = units[i];
+
+    i++;
+  }
+
+  return new Formatter(reduced, unit);
 };
 
 //Converts bytes to the largest unit
