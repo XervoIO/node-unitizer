@@ -28,6 +28,8 @@ Or, for any other unit set, you use a method on the unitize base.
 
     unitize.bytes(1231231310);
 
+## Formatting
+
 Each unitize function returns a chainable instance of a formatter object,
 which helps you format the unitized value into something more human readable.
  Calling `toString()` on the formatter will return a string of the value,
@@ -48,7 +50,7 @@ instead of four.
 
 ## Unitize Functions
 
-### unitizer(value, base, units)
+### unitizer(value, [base], [units])
 
 Converts a number to base units. By default, this will use 1000 base units,
 labeled with k, m, b, and t.
@@ -60,6 +62,22 @@ for the base and an array of strings for the units. Unitizer will loop until
 it cannot divide any further or it runs out of units.
 
     unitizer(5732, 12, ['','dozen','gross','great gross']).toString(); //3.32 great gross
+
+By default, unitizer will process values in powers of the base. 12^2 is a
+gross, for example. However, if you need more control over your divison,
+you can pass in an array of increments as the base, and those will be used
+instead of using a power of the base. For example, the imperial mesauring
+system does not have a standard increment for each unit,
+so we need to use our own array of increments to convert inches to miles.
+
+    var increments = [12,3,1760];
+    var units = ['inches','feet','yards','miles'];
+    unitizer(323311,increments,units).toString()
+
+Using this method, the number of increments will always be one less than the
+number of units, because the base for the first unit is used for the
+calclation of the amount for the next. 12 inches = 1 foot, 3 feet = 1 yard,
+and 1760 yards = 1 mile. Any value less than 12 is inches.
 
 ### unitizer.bytes(value)
 

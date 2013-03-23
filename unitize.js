@@ -2,8 +2,9 @@
   * A chainable object that helps to format and
   * display the value and unit.
   */
-var Formatter = function(value, unit) {
-  this.value = value;
+var Formatter = function(original, reduced, unit) {
+  this.original = original;
+  this.value = reduced;
   this.unit = unit;
   this.prefix = '';
   this.postfix = '';
@@ -90,7 +91,7 @@ Formatter.prototype.currency = function(useSymbol, country) {
   return this;
 };
 
-//Capitializes the unit
+//Capitalizes the unit
 Formatter.prototype.capitalize = function() {
   this._formatted = true;
 
@@ -149,7 +150,7 @@ var unitize = function(value, base, units) {
       base = unitize._makeNumber(base);
     }
   } catch(e) {
-    return new Formatter(0,'');
+    return new Formatter(0, 0, '');
   }
 
   if(base instanceof Array) {
@@ -175,7 +176,7 @@ var unitize = function(value, base, units) {
     i++;
   }
 
-  return new Formatter(reduced, unit);
+  return new Formatter(value, reduced, unit);
 };
 
 //Attempts to convert a value to a float
@@ -198,10 +199,13 @@ unitize._array = function(value, base, units) {
   var reduced = value;
   var unit = units[0];
 
-
   //Loop until the value is converted or we run out of units
   var i = 1;
   while(reduced / increment >= 1 && i < units.length) {
+    //Update the converted value and unit
+    reduced = reduced / increment;
+    unit = units[i];
+
     //Set the increment to the current base
     if(base.length > i) {
       increment = base[i];
@@ -209,14 +213,10 @@ unitize._array = function(value, base, units) {
       increment = base[base.length - 1];
     }
 
-    //Update the converted value and unit
-    reduced = reduced / increment;
-    unit = units[i];
-
     i++;
   }
 
-  return new Formatter(reduced, unit);
+  return new Formatter(value, reduced, unit);
 };
 
 //Converts bytes to the largest unit
