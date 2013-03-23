@@ -31,7 +31,7 @@ Formatter.prototype.floor = function() {
   return this;
 };
 
-//Converts the value to the requested percision
+//Converts the value to the requested precision
 Formatter.prototype.precision = function(precision) {
   this._formatted = true;
 
@@ -68,8 +68,6 @@ Formatter.prototype.currency = function(useSymbol, country) {
   this._formatted = true;
 
   country = country || 'US';
-
-  useSymbol = useSymbol
   if(typeof useSymbol !== 'boolean') {
     useSymbol = true;
   }
@@ -121,9 +119,9 @@ Formatter.prototype.toString = function(unitSpace) {
 
   if(this.unitSpace) {
     str += ' ';
-  };
+  }
 
-  str += this.unit + this.postfix
+  str += this.unit + this.postfix;
 
   return str;
 };
@@ -139,7 +137,6 @@ Formatter.prototype.toString = function(unitSpace) {
 var unitize = function(value, base, units) {
   //Default empty values
   base = base || 1000;
-  units = units;
 
   if(!units || units instanceof Array === false) {
     units = ['', 'k', 'm', 'b', 't'];
