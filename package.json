@@ -1,12 +1,20 @@
 {
   "name": "unitize",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Takes unitless numbers and converts them to a specificed unit. Also provides some simple formatting methods to display converted numbers to users.",
   "main": "unitize.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": "Modulus <feedback@modulus.io>",
+  "maintainers": [
+    "busyrich <richard@modulus.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onmodulus/node-unitizer.git"
   },
-  "repository": "",
-  "author": "",
-  "license": "BSD"
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/onmodulus/node-unitizer/blob/master/LICENSE-MIT"
+    }
+  ]
 }
