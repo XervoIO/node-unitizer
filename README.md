@@ -9,7 +9,7 @@ function calls.
 
 ## Installation
 
-    npm install unitizer
+    npm install unitize
 
 ## Usage
 
