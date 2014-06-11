@@ -1,4 +1,4 @@
-# Unitizer
+# Unitize
 
 Unitizes a value by converting it to the highest unit in a set of units. Ex:
 123456 unitized into bytes would be 120.56kb. Once converted,
@@ -15,7 +15,7 @@ function calls.
 
 First you have to require the module.
 
-    var unitize = require('unitizer');
+    var unitize = require('unitize');
 
 Once you have unitizer available, you have to call a unitize function that
 converts your value into a
@@ -50,18 +50,18 @@ instead of four.
 
 ## Unitize Functions
 
-### unitizer(value, [base], [units])
+### unitize(value, [base], [units])
 
 Converts a number to base units. By default, this will use 1000 base units,
 labeled with k, m, b, and t.
 
-    unitizer(12131432).toString(); //12.13 m
+    unitize(12131432).toString(); //12.13 m
 
 However you can provide any base and units you want. Just provide a number
 for the base and an array of strings for the units. Unitizer will loop until
 it cannot divide any further or it runs out of units.
 
-    unitizer(5732, 12, ['','dozen','gross','great gross']).toString(); //3.32 great gross
+    unitize(5732, 12, ['','dozen','gross','great gross']).toString(); //3.32 great gross
 
 By default, unitizer will process values in powers of the base. 12^2 is a
 gross, for example. However, if you need more control over your divison,
@@ -72,28 +72,28 @@ so we need to use our own array of increments to convert inches to miles.
 
     var increments = [12,3,1760];
     var units = ['inches','feet','yards','miles'];
-    unitizer(323311,increments,units).toString()
+    unitize(323311,increments,units).toString()
 
 Using this method, the number of increments will always be one less than the
 number of units, because the base for the first unit is used for the
 calclation of the amount for the next. 12 inches = 1 foot, 3 feet = 1 yard,
 and 1760 yards = 1 mile. Any value less than 12 is inches.
 
-### unitizer.bytes(value)
+### unitize.bytes(value)
 
 Converts a number to 1024 base units, labeled as byte increments. Goes to
 petabytes.
 
-    unitizer.bytes(123123313).toString(); //117.42 mb
+    unitize.bytes(123123313).toString(); //117.42 mb
 
-### unitizer.finance(value, country)
+### unitize.finance(value, country)
 
 Converts a number to 1000 base units, but labels the number based on financal
  standards (M, MM, etc.), prefixes the number with the currency symbol for
  the country provided, and removes the space between the vaule and unit.
  Country defaults to US.
 
-    unitizer.finance(5423234).toString(); //$5.42MM
+    unitize.finance(5423234).toString(); //$5.42MM
 
 ##Formatting Functions
 
@@ -104,31 +104,31 @@ postfixed to the value. By default there is a space between the value and
 unit, but passing false for the `unitSpace` param will prevent it from being
 added.
 
-    unitizer(12131432).toString(); //12.13 m
+    unitize(12131432).toString(); //12.13 m
 
 ### precision(precision)
 
 Formats the value to the specificed precision.
 
-    unitizer(12131432).precision(3).toString(); //12.131 m
+    unitize(12131432).precision(3).toString(); //12.131 m
 
 ### significant(digits)
 
 Formats the value to the specified significant digits.
 
-    unitizer(12131432).significant(3).toString(); //12.1 m
+    unitize(12131432).significant(3).toString(); //12.1 m
 
 ### floor()
 
 Removes any percision (decimals) from the value.
 
-    unitizer(12131432).floor().toString(); //12 m
+    unitize(12131432).floor().toString(); //12 m
 
 ### capitalize()
 
 Capitalizes the unit.
 
-    unitizer(12131432).capitalize().toString(); //12 M
+    unitize(12131432).capitalize().toString(); //12 M
 
 ### currency(useSymbol, country)
 
@@ -139,5 +139,5 @@ Formats the value with two percision, removes the space between the value
  to a
  symbol in the US.
 
-    unitizer(12131432).currency().toString(); //$12.13m
-    unitizer(12131432).currency(false).toString(); //USD 12.13m
+    unitize(12131432).currency().toString(); //$12.13m
+    unitize(12131432).currency(false).toString(); //USD 12.13m
